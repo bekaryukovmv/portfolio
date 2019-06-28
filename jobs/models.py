@@ -7,3 +7,6 @@ class Job(models.Model):
     class Meta:
         verbose_name = 'Работа'
         verbose_name_plural = 'Работы'
+
+    def __str__(self):
+        return self.summary

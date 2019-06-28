@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ru">
-{% load staticfiles %}
+<html lang="en">
 
 <head>
+    {% load staticfiles %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Максим Бекарюков</title>
+    <title>Блог Максима Бекарюкова</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -24,45 +24,30 @@
                 <div class="navbar-nav ml-auto">
                     <a class="nav-item nav-link" href="https://vk.com/bekaryukovmv">Вконтакте</a>
                     <a class="nav-item nav-link" href="{% static 'resume.pdf' %}">Резюме</a>
-                    <a class="nav-item nav-link" href="{% url 'allblogs' %}">Блог</a>
+                    <a class="nav-item nav-link active" href="{% url 'allblogs' %}">Блог</a>
                 </div>
             </div>
         </nav>
     </header>
 
     <main role="main">
-
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading">Привет, я Максим Бекарюков.</h1>
-                <p class="lead text-muted">Я люблю создавать сайты на Python и Django. Это красиво, быстро и эффективно.
-                    Это как раз то, что нужно клиентам!</p>
-                <p>
-                    <a href="mailto:bekaryukovmv@gmail.com" class="btn btn-primary my-2">Написать мне</a>
-                </p>
-                <img class="img-fluid" src="{% static 'P1050731.jpg' %}" alt="Моё фото" height="300" width="300">
-            </div>
-        </section>
-
-        <div class="album py-5 bg-light">
-            <div class="container">
-
-                <div class="row">
-
-                    {% for job in jobs.all %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="{{ job.image.url }}" alt="image">
-                            <div class="card-body">
-                                <p class="card-text">{{ job.summary }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+        <div class="container">
+            <h1 class="text-center pt-3">Добро пожаловать в мой блог</h1>
+            <br>
+            <br>
+            <h2>Последние публикации</h2>
+            <hr>
+            {% for blog in blogs.all %}
+            <a href="{% url 'detail' blog.id %}">
+                <h3>{{ blog.title }}</h3>
+            </a>
+            {{ blog.pub_date_pretty }}
+            <br>
+            <img class="img-fluid" src="{{ blog.image.url }}" height="200" width="200" alt="">
+            <br>
+            <p>{{ blog.summary }}</p>
+            {% endfor %}
         </div>
-
     </main>
 
     <footer class="text-muted">
